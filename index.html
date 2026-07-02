@@ -5,6 +5,93 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday Mom ❤️</title>
 <style>
+    /* ---------- ENVELOPES ---------- */
+
+.envelope-container{
+display:flex;
+justify-content:center;
+gap:40px;
+margin-top:35px;
+flex-wrap:wrap;
+}
+
+.envelope{
+width:180px;
+padding:25px 20px;
+background:#fff8fb;
+border-radius:18px;
+box-shadow:0 10px 20px rgba(0,0,0,.15);
+cursor:pointer;
+transition:.35s;
+text-align:center;
+color:#8d2451;
+}
+
+.envelope:hover{
+transform:translateY(-8px) scale(1.05);
+box-shadow:0 15px 25px rgba(0,0,0,.2);
+}
+
+.envelope p{
+margin-top:10px;
+font-size:20px;
+font-weight:bold;
+}
+
+/* ---------- LETTER ---------- */
+
+.letter{
+display:none;
+background:#fff8fb;
+padding:35px;
+border-radius:20px;
+max-width:650px;
+margin:30px auto;
+box-shadow:0 12px 25px rgba(0,0,0,.15);
+animation:pop .4s ease;
+color:#8d2451;
+}
+
+.letter h2{
+margin-bottom:20px;
+}
+
+.letter p{
+font-size:20px;
+line-height:1.7;
+}
+
+.letter button{
+margin-top:25px;
+padding:10px 28px;
+border:none;
+border-radius:999px;
+background:#ff77aa;
+color:white;
+font-size:16px;
+cursor:pointer;
+transition:.3s;
+}
+
+.letter button:hover{
+background:#ff5f98;
+transform:scale(1.05);
+}
+
+#finalMessage{
+display:none;
+}
+
+@keyframes pop{
+from{
+opacity:0;
+transform:scale(.85);
+}
+to{
+opacity:1;
+transform:scale(1);
+}
+}
 *{
 margin:0;
 padding:0;
@@ -253,39 +340,111 @@ I love you so much.
 
 </div>
 <script>
+let openedLetter1 = false;
+let openedLetter2 = false;
+
 function openGift(){
+
 document.querySelector(".container").classList.add("open");
+
 createHearts();
 createConfetti();
 
 setTimeout(function(){
+
 ["hint","lid","ribbonV","ribbonH","bow"].forEach(function(id){
+
 document.getElementById(id).classList.add("removed");
+
 });
-}, 1000);
+
+},1000);
+
 }
+
+// ---------------- LETTERS ----------------
+
+function openLetter(number){
+
+document.getElementById("envelopeSection").style.display="none";
+
+document.getElementById("letter"+number).style.display="block";
+
+if(number===1){
+openedLetter1=true;
+}
+
+if(number===2){
+openedLetter2=true;
+}
+
+}
+
+function closeLetter(){
+
+document.getElementById("letter1").style.display="none";
+document.getElementById("letter2").style.display="none";
+
+if(openedLetter1 && openedLetter2){
+
+document.getElementById("finalMessage").style.display="block";
+
+}else{
+
+document.getElementById("envelopeSection").style.display="block";
+
+}
+
+}
+
+// ---------------- HEARTS ----------------
+
 function createHearts(){
+
 for(let i=0;i<40;i++){
+
 let heart=document.createElement("div");
+
 heart.className="heart";
+
 heart.innerHTML=["❤️","💖","💕","🌸"][Math.floor(Math.random()*4)];
+
 heart.style.left=Math.random()*100+"vw";
+
 heart.style.animationDuration=(4+Math.random()*4)+"s";
+
 heart.style.fontSize=(20+Math.random()*20)+"px";
+
 document.body.appendChild(heart);
+
 }
+
 }
+
+// ---------------- CONFETTI ----------------
+
 function createConfetti(){
+
 const colors=["#ff6b9d","#ffd166","#6ec6ff","#95e06c","#ff9e6d"];
+
 for(let i=0;i<120;i++){
+
 let c=document.createElement("div");
+
 c.className="confetti";
+
 c.style.left=Math.random()*100+"vw";
+
 c.style.background=colors[Math.floor(Math.random()*colors.length)];
+
 c.style.animationDuration=(2+Math.random()*4)+"s";
+
 c.style.animationDelay=(Math.random()*2)+"s";
+
 document.body.appendChild(c);
+
 }
+
 }
 </script>
 </body>
